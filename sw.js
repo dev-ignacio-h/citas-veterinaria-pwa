@@ -1,5 +1,16 @@
 // archivos a cachear
-const nombreCache = 'apv-v1';
+const actualizarCache = e => {
+  e.waitUntil(
+    caches.keys().then(keys => {
+      // console.log(keys);
+      return Promise.all(
+        keys.filter(key => key !== nombreCache).map(key => caches.delete(key)) // se borran las versiones anteriores del cache
+      );
+    })
+  );
+};
+
+const nombreCache = 'apv-v3';
 const archivos = [
   '/',
   '/index.html',
@@ -11,7 +22,7 @@ const archivos = [
   '/manifest.json',
 ];
 // Cuando se instala el service worker
-// Buen lugar para cachear ciertos archivos
+// Cachear ciertos archivos
 self.addEventListener('install', e => {
   console.log('Instalado el service worker');
 
@@ -22,14 +33,15 @@ self.addEventListener('install', e => {
       cache.addAll(archivos); // si es sólo un archivo se puede usar .add
     })
   );
+
+  actualizarCache(e);
 });
 
 // Activar el Service worker
-// Buen lugar para nuevas versiones de la PWA
+// Nuevas versiones de la PWA
 self.addEventListener('activate', e => {
   console.log('Service Worker Activado');
-
-  console.log(e);
+  actualizarCache(e);
 });
 
 // Evento fetch para descargar archivos estáticos
