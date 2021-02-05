@@ -10,7 +10,8 @@ const contenedorCitas = document.querySelector('#citas');
 
 // Formulario nuevas citas
 const formulario = document.querySelector('#nueva-cita');
-formulario.addEventListener('submit', nuevaCita);
+if(formulario) formulario.addEventListener('submit', nuevaCita);
+
 
 // Heading
 const heading = document.querySelector('#administra');
