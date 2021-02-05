@@ -7,6 +7,7 @@ const archivos = [
   "/css/styles.css",
   "/js/app.js",
   "/js/apv.js",
+  "/manifest.json",
 ];
 // Cuando se instala el service worker
 // Buen lugar para cachear ciertos archivos
